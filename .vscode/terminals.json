@@ -1,0 +1,15 @@
+{
+  "autorun": true,
+  "terminals": [
+    {
+      "name": "run dev",
+      "focus": true,
+      "command": "yarn dev"
+    },
+    {
+      "name": "Storybook",
+      "focus": false,
+      "command": "yarn storybook"
+    }
+  ]
+}
