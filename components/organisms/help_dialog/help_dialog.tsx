@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, DialogTitle, ThemeProvider, styled, DialogContentText } from "@mui/material";
 import { Box, textAlign } from "@mui/system";
 import React, { useContext } from "react";
-import { HelpDialogContext } from "../../../pages";
+import HelpDialogContext from "../../../context/help_dialog_context";
 import ChillFireTheme from "../../../util/theme";
 
 const BoxStyle = styled(Box)({
@@ -28,10 +28,10 @@ const DialogContentTextStyle = styled(DialogContentText)({
 
 const HelpDialog = () => {
 
-    const { isOpen, setIsOpen } = useContext(HelpDialogContext);
+    const { helpDialogIsOpen, setHelpDialogIsOpen } = useContext(HelpDialogContext);
 
     return <ThemeProvider theme={ChillFireTheme}>
-        <Dialog open={isOpen} onClose={() => setIsOpen(false)} maxWidth="md" PaperProps={{ style: { backgroundColor: "transparent" } }}>
+        <Dialog open={helpDialogIsOpen} onClose={() => setHelpDialogIsOpen(false)} maxWidth="md" PaperProps={{ style: { backgroundColor: "transparent" } }}>
             <BoxStyle>
                 <DialogTitleStyle>このサイトについて</DialogTitleStyle>
                 <DialogContent><DialogContentTextStyle>このサイトは焚き火を愛するためにあります。</DialogContentTextStyle>

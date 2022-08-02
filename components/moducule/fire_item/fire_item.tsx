@@ -5,18 +5,22 @@ import FirePicture from "../../atoms/fire_picture/fire_picture";
 import LocationInfo from "../../atoms/location_info/location_info";
 import UploadTime from "../../atoms/upload_time/upload_time";
 
-const FireItem = (props) => {
+type Props = {
+    image: string
+}
+
+const FireItem = (props: Props) => {
     return (
-    <ImageListItem>
-        <FirePicture image={props.image}></FirePicture>
-        <Box display={"flex"} alignItems={"center"} flexDirection={"row"}>
-            <FirewoodButton></FirewoodButton>
-            <LocationInfo></LocationInfo>
-            <Box marginLeft={"auto"}>
-                <UploadTime></UploadTime>
+        <ImageListItem>
+            <FirePicture image={props.image}></FirePicture>
+            <Box display={"flex"} alignItems={"center"} flexDirection={"row"}>
+                <FirewoodButton></FirewoodButton>
+                <LocationInfo></LocationInfo>
+                <Box marginLeft={"auto"}>
+                    <UploadTime></UploadTime>
+                </Box>
             </Box>
-        </Box>
-    </ImageListItem>)
+        </ImageListItem>)
 }
 
 

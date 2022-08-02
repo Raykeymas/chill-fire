@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Fab, ThemeProvider, alpha, styled } from "@mui/material";
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import ChillFireTheme from "../../../util/theme";
+import UploadDialogContext from "../../../context/upload_dialog_context";
 
 const UploadButtonStyle = styled(Fab)({
-    backgroundColor: alpha(ChillFireTheme.palette.primary.main,0.3),
+    backgroundColor: alpha(ChillFireTheme.palette.primary.main, 0.3),
     // margin: 0,
     // top: 'auto',
     // right: 40,
@@ -12,7 +13,7 @@ const UploadButtonStyle = styled(Fab)({
     // left: 'auto',
     // position: 'fixed',
     "&:hover": {
-        backgroundColor: alpha(ChillFireTheme.palette.primary.main,0.5),
+        backgroundColor: alpha(ChillFireTheme.palette.primary.main, 0.5),
     }
 })
 
@@ -22,9 +23,12 @@ const LocalFireDepartmentIconStyle = styled(LocalFireDepartmentIcon)({
 
 
 const UploadButton = () => {
+
+    const { uploadDialogIsOpen, setUploadDialogIsOpen } = useContext(UploadDialogContext)
+
     return (
         <ThemeProvider theme={ChillFireTheme}>
-            <UploadButtonStyle color="primary">
+            <UploadButtonStyle color="primary" onClick={() => setUploadDialogIsOpen(!uploadDialogIsOpen)}>
                 <LocalFireDepartmentIconStyle color="primary"></LocalFireDepartmentIconStyle>
             </UploadButtonStyle>
         </ThemeProvider>

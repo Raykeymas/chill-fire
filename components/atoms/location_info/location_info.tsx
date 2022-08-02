@@ -9,15 +9,15 @@ const ButtonStyle = styled(Button)({
     color: ChillFireTheme.palette.primary.contrastText,
 })
 
-const AddLocationAltRoundedIconStyle = styled(AddLocationAltRoundedIcon)({
+export const AddLocationAltRoundedIconStyle = styled(AddLocationAltRoundedIcon)({
     color: ChillFireTheme.palette.secondary.main,
 })
 
 const LocationInfo = () => {
     return (
         <ThemeProvider theme={ChillFireTheme}>
-        <ButtonStyle startIcon={<AddLocationAltRoundedIconStyle/>}>Japan Kanazawa</ButtonStyle>
-    </ThemeProvider>
+            <ButtonStyle startIcon={<AddLocationAltRoundedIconStyle />}>Japan Kanazawa</ButtonStyle>
+        </ThemeProvider>
     )
 }
 

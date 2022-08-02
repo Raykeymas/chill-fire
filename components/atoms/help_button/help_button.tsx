@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Fab, ThemeProvider, alpha, styled, createTheme } from "@mui/material";
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import ChillFireTheme from "../../../util/theme";
-import { HelpDialogContext } from "../../../pages";
+import HelpDialogContext from "../../../context/help_dialog_context";
 
 const HelpTheme = createTheme({
     palette: {
@@ -16,9 +16,9 @@ const HelpTheme = createTheme({
 })
 
 const HelpButtonStyle = styled(Fab)({
-    backgroundColor: alpha(HelpTheme.palette.primary.main,0.3),
+    backgroundColor: alpha(HelpTheme.palette.primary.main, 0.3),
     "&:hover": {
-        backgroundColor: alpha(HelpTheme.palette.primary.main,0.5),
+        backgroundColor: alpha(HelpTheme.palette.primary.main, 0.5),
     }
 })
 
@@ -28,11 +28,11 @@ const QuestionMarkIconStyle = styled(QuestionMarkIcon)({
 
 
 const HelpButton = () => {
-    const {isOpen, setIsOpen} = useContext(HelpDialogContext);
+    const { helpDialogIsOpen, setHelpDialogIsOpen } = useContext(HelpDialogContext);
 
     return (
         <ThemeProvider theme={HelpTheme}>
-            <HelpButtonStyle color="primary" onClick={() => setIsOpen(!isOpen)}>
+            <HelpButtonStyle color="primary" onClick={() => setHelpDialogIsOpen(!helpDialogIsOpen)}>
                 <QuestionMarkIconStyle color="primary"></QuestionMarkIconStyle>
             </HelpButtonStyle>
         </ThemeProvider>
