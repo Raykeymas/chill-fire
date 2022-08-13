@@ -16,12 +16,12 @@ const image_list = [
 const FireItemList = () => {
     return (<><Box paddingLeft={"20px"} paddingRight={"20px"}>
         <ImageList variant="masonry" gap={20} cols={3}>
-        {image_list.map((image,i) => {
-            return <FireItem key={i} image={image}></FireItem>;
-        })}
-    </ImageList>
+            {image_list.map((image, i) => {
+                return <FireItem key={i} image={image}></FireItem>;
+            })}
+        </ImageList>
     </Box>
-    <FloatingButtons></FloatingButtons></>)
+        <FloatingButtons></FloatingButtons></>)
 }
 
 

@@ -1,8 +1,10 @@
-import React, { useContext } from "react";
+import React, { ChangeEventHandler, useContext } from "react";
 import { Fab, ThemeProvider, alpha, styled } from "@mui/material";
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import ChillFireTheme from "../../../util/theme";
 import UploadDialogContext from "../../../context/upload_dialog_context";
+import { reverse } from "dns/promises";
+import receiveImage from "../../../functions/receive_image";
 
 const UploadButtonStyle = styled(Fab)({
     backgroundColor: alpha(ChillFireTheme.palette.primary.main, 0.3),
@@ -24,11 +26,19 @@ const LocalFireDepartmentIconStyle = styled(LocalFireDepartmentIcon)({
 
 const UploadButton = () => {
 
-    const { uploadDialogIsOpen, setUploadDialogIsOpen } = useContext(UploadDialogContext)
+    const { uploadDialogState, setUploadDialogState } = useContext(UploadDialogContext)
+
+    const onUploadImage: ChangeEventHandler<HTMLInputElement> = (event) => {
+        const image: File | undefined = receiveImage(event);
+        if (image) {
+            setUploadDialogState({ isOpen: true, file: image })
+        }
+    }
 
     return (
         <ThemeProvider theme={ChillFireTheme}>
-            <UploadButtonStyle color="primary" onClick={() => setUploadDialogIsOpen(!uploadDialogIsOpen)}>
+            <UploadButtonStyle color="primary" component="label" >
+                <input accept="image/*" id={"upload-button"} type={"file"} onChange={onUploadImage} hidden />
                 <LocalFireDepartmentIconStyle color="primary"></LocalFireDepartmentIconStyle>
             </UploadButtonStyle>
         </ThemeProvider>

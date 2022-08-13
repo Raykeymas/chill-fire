@@ -1,13 +1,14 @@
 import { Dialog, DialogContent, DialogTitle, ThemeProvider, styled, DialogContentText, Button } from "@mui/material";
 import { Box, textAlign } from "@mui/system";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import HelpDialogContext from "../../../context/help_dialog_context";
 import UploadDialogContext from "../../../context/upload_dialog_context";
 import ChillFireTheme from "../../../util/theme";
+import CloseButton from "../../atoms/close_button/close_button";
 import FirePicture from "../../atoms/fire_picture/fire_picture";
-import { AddLocationAltRoundedIconStyle } from "../../atoms/location_info/location_info";
+import LocationIcon from "../../atoms/location_icon/location_icon";
 
-const BoxStyle = styled(Box)({
+const MailBoxStyle = styled(Box)({
     backgroundColor: ChillFireTheme.palette.background.default,
     borderRadius: "20px",
     display: "flex",
@@ -16,30 +17,51 @@ const BoxStyle = styled(Box)({
     flexDirection: "column",
 })
 
-const DialogTitleStyle = styled(DialogTitle)({
-    color: ChillFireTheme.palette.primary.contrastText,
-    paddingBottom: "60px"
+const DialogContentStyle = styled(DialogContent)({
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
 })
 
-const DialogContentTextStyle = styled(DialogContentText)({
-    color: ChillFireTheme.palette.primary.contrastText,
-    textAlign: "center",
-    lineHeight: "2em"
+const LocationButtonStyle = styled(Button)({
+    width: "100%",
 })
 
+const CloseButtonBoxStyle = styled(Box)({
+    width: "100%",
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "top",
+})
 
 const UploadDialog = () => {
 
-    const { uploadDialogIsOpen, setUploadDialogIsOpen } = useContext(UploadDialogContext);
+    const { uploadDialogState, setUploadDialogState } = useContext(UploadDialogContext);
+    const [imageUrl, setImageUrl] = useState<string | ArrayBuffer | null | undefined>("");
+
+    useEffect(() => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const url = event.target?.result;
+            setImageUrl(url);
+        }
+        if (uploadDialogState.file) {
+            reader.readAsDataURL(uploadDialogState.file)
+        }
+    }, [uploadDialogState.file])
 
     return <ThemeProvider theme={ChillFireTheme}>
-        <Dialog open={uploadDialogIsOpen} onClose={() => setUploadDialogIsOpen(false)} maxWidth="md" PaperProps={{ style: { backgroundColor: "transparent" } }}>
-            <BoxStyle>
-                <DialogContent>
-                    <FirePicture image={"https://images.unsplash.com/photo-1618608273551-ea65b6429358?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070"}></FirePicture>
-                    <Button startIcon={<AddLocationAltRoundedIconStyle />}></Button>
-                </DialogContent>
-            </BoxStyle></Dialog>
+        <Dialog open={uploadDialogState.isOpen} onClose={() => setUploadDialogState({ isOpen: false, file: undefined })} maxWidth="sm" PaperProps={{ style: { backgroundColor: "transparent" } }}>
+            <MailBoxStyle>
+                <DialogContentStyle>
+                    <CloseButtonBoxStyle>
+                        <CloseButton onClick={() => setUploadDialogState({ isOpen: false, file: undefined })} />
+                    </CloseButtonBoxStyle>
+                    <FirePicture image={imageUrl as string}></FirePicture>
+                    <LocationButtonStyle color="secondary" sx={{ height: "80px" }} startIcon={<LocationIcon size="large" />}></LocationButtonStyle>
+                </DialogContentStyle>
+            </MailBoxStyle></Dialog>
     </ThemeProvider>
 
 }
